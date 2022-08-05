@@ -13,7 +13,9 @@ if(!empty($_POST)){
 ?>
 
 <h3 style="color: red;" class="ct"><?=$error??'';?></h3>
-<!-- $error??''; 等同 (isset($error))?$error:''; -->
+<!-- $error??''; 
+    　等同
+     (isset($error))?$error:''; -->
 
 <form action="back.php" method="post">
   <table style="width: 30%; margin:auto">
