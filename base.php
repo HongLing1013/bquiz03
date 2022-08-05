@@ -72,8 +72,9 @@ class DB{
       }
       $sql="UPDATE $this->table SET ".join(',',$tmp)." WHERE `id` = '{$array['id']}'";
     }else{
-      $sql="INSERT INTO $this->table (`".join("`,`",array_keys($array))."`) vlaues('".join("','",$array)."')";
+      $sql="INSERT INTO $this->table (`".join("`,`",array_keys($array))."`) values('".join("','",$array)."')";
     }
+    // echo $sql;
     return $this->pdo->exec($sql);
   }
 
@@ -114,5 +115,7 @@ function dd($array)
   print_r($array);
   echo "</pre>";
 }
+
+$Poster=new DB('poster');
 
 ?>
