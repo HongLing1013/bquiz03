@@ -1,11 +1,51 @@
+<style>
+.lists{
+  width:210px;
+  height:280px;
+  margin:auto;
+  background:white;
+}
+
+.controls{
+  width:420px;
+  height:100px;
+  margin: 1rem auto;
+  background:white;
+  display:flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.right,.left{
+  width:0;
+  border-top:25px solid transparent;
+  border-bottom:25px solid transparent;
+}
+.right{
+  border-left:30px solid #999;
+}
+.left{
+  border-right:30px solid #999;
+}
+.icons{
+  width:320px;
+  background:yellow;
+  height:100%;
+}
+</style>
+
 <div class="half" style="vertical-align:top;">
       <h1>預告片介紹</h1>
       <div class="rb tab" style="width:95%;">
-        <div id="abgne-block-20111227">
-          <ul class="lists">
-          </ul>
-          <ul class="controls">
-          </ul>
+        <div>
+          <div class="lists">
+          </div>
+          <div class="controls">
+            <div class="left"></div>
+            <div class="icons">
+
+            </div>
+            <div class="right"></div>
+          </div>
         </div>
       </div>
     </div>
