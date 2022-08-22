@@ -1,9 +1,11 @@
 <style>
+.lists *,.controls *{
+  box-sizing: border-box;
+}
 .lists{
   width:210px;
   height:280px;
   margin:auto;
-  background:white;
   position: relative;
 }
 
@@ -11,7 +13,6 @@
   width:420px;
   height:100px;
   margin: 1rem auto;
-  background:white;
   display:flex;
   align-items: center;
   justify-content: space-around;
@@ -22,23 +23,46 @@
   border-bottom:25px solid transparent;
 }
 .right{
-  border-left:30px solid #999;
+  border-left:30px solid lightgreen;
 }
 .left{
-  border-right:30px solid #999;
+  border-right:30px solid lightgreen;
 }
 .icons{
   width:320px;
-  background:yellow;
   height:100%;
+  display:flex;
+  overflow: hidden;
 }
 .poster{
   width:100%;
   text-align: center;
   position: absolute;
+  display: none;
 }
 .poster img{
   width:99%;
+}
+.icon{
+  width:80px;
+  flex-shrink: 0;
+  padding:2px;
+  text-align: center;
+  font-size: small;
+  position:relative;
+}
+.icon img{
+  width:70px;
+}
+
+.left:hover,
+.right:hover,
+.icon:hover{
+  cursor:pointer;
+}
+
+.icon:hover{
+  border:2px solid white;
 }
 </style>
 
@@ -61,7 +85,17 @@
           <div class="controls">
             <div class="left"></div>
             <div class="icons">
+              <?php
 
+                foreach($pos as $key => $po){
+                  echo "<div class='icon' id='i{$po['id']}' data-ani='{$po['ani']}'>";
+                  echo "<img src='./upload/{$po['img']}'>";
+                  echo "<div>{$po['name']}</div>";
+                  echo "</div>";
+                }
+
+
+              ?>
             </div>
             <div class="right"></div>
           </div>
@@ -69,7 +103,88 @@
       </div>
     </div>
 
+<script>
+$(".poster").eq(0).show()
+let start=0;
 
+let slider=setInterval(()=>{ transition() },2000)
+
+function transition(n){
+
+  let now=$(".poster:visible")
+  let eq=$(now).index()
+    //判斷下一張海報的索引值
+    if(eq>=$('.icon').length-1){
+      eq=(n!==undefined)?n:0;
+    }else{
+      eq=(n!==undefined)?n:eq+1;
+    }
+  let next=$(".poster").eq(eq)
+  let ani=$(now).data('ani')
+
+  switch(ani){
+    case 1:
+      //淡入淡出
+      $(now).fadeOut(800,()=>{
+        $(next).fadeIn(800)
+      })
+
+    break;
+    case 2:
+      //滑入滑出
+      $(now).slideUp(800,()=>{
+        $(next).slideDown(800)
+      })
+    break;
+    case 3:
+      //縮放
+      $(now).hide(800,()=>{
+        $(next).show(800)
+      })
+    break;
+  }
+  
+}
+
+
+$(".icon").on("click",function(){
+  let eq=$(this).index()
+  transition(eq)
+})
+
+$(".icons").hover(
+  function(){
+    clearInterval(slider);
+  },
+  function(){
+    slider=setInterval(()=>{ transition() },2000)
+  }
+)
+
+
+let p=1
+let pages=$(".poster").length-4
+
+$(".left,.right").on("click",function(){
+  let arrow=$(this).attr('class');
+  let shift;
+  switch(arrow){
+    case "left":
+      if(p>1){
+        p--
+      }
+    break;
+    case "right":
+      if(p<=pages){
+        p++;
+      }
+      break;
+    }
+    shift=(p-1)*80;
+    $(".icon").animate({right:shift})
+
+})
+</script>
 
 
     <div class="half">
